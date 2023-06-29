@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c16d38f-2ae3-4c42-bccd-b519e93a7b98" name="Changes" comment="overworld changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decoration.py" beforeDir="false" afterPath="$PROJECT_DIR$/decoration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/overworld.py" beforeDir="false" afterPath="$PROJECT_DIR$/overworld.py" afterDir="false" />
-    </list>
+    <list default="true" id="5c16d38f-2ae3-4c42-bccd-b519e93a7b98" name="Changes" comment="overworld addition" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688026508148</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="overworld addition">
+      <created>1688036456734</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1688036456734</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -135,6 +137,7 @@
       <path value="$PROJECT_DIR$/repo" />
     </ignored-roots>
     <MESSAGE value="overworld changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="overworld changes" />
+    <MESSAGE value="overworld addition" />
+    <option name="LAST_COMMIT_MESSAGE" value="overworld addition" />
   </component>
 </project>

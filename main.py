@@ -1,13 +1,18 @@
 from settings import *
 from level import Level
-from game_data import level_0
 import pygame, sys
 from overworld import Overworld
 from level import Level
 
 class Game:
     def __init__(self):
+        # game attributes
         self.max_level = 0
+        self.max_health = 100
+        self.cur_health = 100
+        self.coins = 0
+
+        # overworld creation
         self.overworld = Overworld(0, self.max_level, window, self.create_level)    # no brackets because method is being passed around, not called
         self.status = 'overworld'
 
