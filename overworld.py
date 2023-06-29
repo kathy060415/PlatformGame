@@ -1,6 +1,7 @@
 import pygame
 from game_data import levels
 from support import import_folder
+from decoration import Sky
 
 class Node(pygame.sprite.Sprite):
     def __init__(self, pos, status, icon_speed, path):
@@ -19,6 +20,7 @@ class Node(pygame.sprite.Sprite):
                                           self.rect.centery - (icon_speed / 2),
                                           icon_speed, icon_speed)   # variables have to be relative to speed
 
+    # animate level images
     def animate(self):
         self.frame_index += 0.15  # update frame index
         if self.frame_index >= len(self.frames):
@@ -26,7 +28,12 @@ class Node(pygame.sprite.Sprite):
         self.image = self.frames[int(self.frame_index)]
 
     def update(self):
-        self.animate()
+        if self.status == 'available':
+            self.animate()
+        else:
+            tint_surf = self.image.copy()
+            tint_surf.fill('black', None, pygame.BLEND_RGBA_MULT)       # hiding pixels not being used
+            self.image.blit(tint_surf, (0, 0))
 
 # icon on overworld (Tracks progess of player)
 class Icon(pygame.sprite.Sprite):
@@ -57,6 +64,7 @@ class Overworld:
         # sprites
         self.setup_nodes()
         self.setup_icon()
+        self.sky = Sky(8,'overworld')
 
     # setting up position of nodes
     def setup_nodes(self):
@@ -70,8 +78,9 @@ class Overworld:
             self.nodes.add(node_sprite)
 
     def draw_paths(self):
-        points = [node['node_pos'] for index, node in enumerate(levels.values()) if index <= self.max_level]
-        pygame.draw.lines(self.display_surface, 'red', False, points, 4)     # pygame that draws lines
+        if self.max_level > 0:
+            points = [node['node_pos'] for index, node in enumerate(levels.values()) if index <= self.max_level]
+            pygame.draw.lines(self.display_surface, '#a04f45', False, points, 4)     # pygame that draws lines
 
     def setup_icon(self):
         self.icon = pygame.sprite.GroupSingle()
@@ -116,6 +125,9 @@ class Overworld:
         self.input()
         self.update_icon_pos()
         self.icon.update()
+        self.nodes.update()
+
+        self.sky.draw(self.display_surface)
         self.draw_paths()
         self.nodes.draw(self.display_surface)
         self.icon.draw(self.display_surface)

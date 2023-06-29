@@ -7,8 +7,8 @@ from level import Level
 
 class Game:
     def __init__(self):
-        self.max_level = 2
-        self.overworld = Overworld(1, self.max_level, window, self.create_level)    # no brackets because method is being passed around, not called
+        self.max_level = 0
+        self.overworld = Overworld(0, self.max_level, window, self.create_level)    # no brackets because method is being passed around, not called
         self.status = 'overworld'
 
     # method created in Game class but called in Overworld

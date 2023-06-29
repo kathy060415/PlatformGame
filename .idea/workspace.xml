@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c16d38f-2ae3-4c42-bccd-b519e93a7b98" name="Changes" comment="git">
+    <list default="true" id="5c16d38f-2ae3-4c42-bccd-b519e93a7b98" name="Changes" comment="overworld changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decoration.py" beforeDir="false" afterPath="$PROJECT_DIR$/decoration.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/overworld.py" beforeDir="false" afterPath="$PROJECT_DIR$/overworld.py" afterDir="false" />
     </list>
@@ -108,6 +108,14 @@
       <option name="presentableId" value="Default" />
       <updated>1686543309886</updated>
     </task>
+    <task id="LOCAL-00001" summary="overworld changes">
+      <created>1688026508148</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1688026508148</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,5 +134,7 @@
       <path value="$PROJECT_DIR$" />
       <path value="$PROJECT_DIR$/repo" />
     </ignored-roots>
+    <MESSAGE value="overworld changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="overworld changes" />
   </component>
 </project>
