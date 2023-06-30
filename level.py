@@ -11,6 +11,7 @@ from support import import_csv_layout, import_cut_graphics
 from enemy import Enemy
 from decoration import Sky, Water, Clouds
 from game_data import levels
+from particles import ParticleEffect
 
 class Level:
     def __init__(self, current_level, surface, create_overworld, change_coins):
@@ -30,6 +31,10 @@ class Level:
         # self.font = pygame.font.Font(None, 40)
         # self.text_surf = self.font.render(level_content, True, 'White')
         # self.text_rect = self.text_surf.get_rect(center=(screen_width / 2, screen_height / 2))
+
+        # dust
+        self.dust_sprite = pygame.sprite.GroupSingle()
+        self.player_on_ground = False
 
         # player setup
         player_layout = import_csv_layout(level_data['player'])
@@ -85,6 +90,29 @@ class Level:
     #         self.create_overworld(self.current_level, self.new_max_level)
     #     if keys[pygame.K_ESCAPE]:   # loses level
     #         self.create_overworld(self.current_level, 0)    # level not updated
+
+    def create_jump_particles(self, pos):
+        if self.player.sprite.facing_right:
+            pos -= pygame.math.Vector2(10, 5)
+        else:
+            pos += pygame.math.Vector2(10, -5)
+        jump_particle_sprite = ParticleEffect(pos, 'jump')
+        self.dust_sprite.add(jump_particle_sprite)
+
+    def get_player_on_ground(self):
+        if self.player.sprite.on_ground:
+            self.player_on_ground = True
+        else:
+            self.player_on_ground = False      # player in the air
+
+    def create_landing_dust(self):
+        if not self.player_on_ground and self.player.sprite.on_ground and not self.dust_sprite.sprites():
+            if self.player.sprite.facing_right:
+                offset = pygame.math.Vector2(10, 15)
+            else:
+                offset = pygame.math.Vector2(-10, 15)
+            fall_dust_particle = ParticleEffect(self.player.sprite.rect.midbottom - offset, 'land')
+            self.dust_sprite.add(fall_dust_particle)
 
     def create_tile_group(self, layout, type):
         sprite_group = pygame.sprite.Group()
@@ -144,7 +172,7 @@ class Level:
                 y = row_index * tile_size
                 if val == '0':  # player
                     # self.player = pygame.sprite.GroupSingle()
-                    sprite = Player((x, y))
+                    sprite = Player((x, y), self.display_surface, self.create_jump_particles)
                     self.player.add(sprite)
                 if val == '1':  # goal
                     hat_surface = pygame.image.load('assets/Items/Checkpoints/End/End (Idle).png').convert_alpha()
@@ -246,6 +274,10 @@ class Level:
         self.sky.draw(self.display_surface)
         self.clouds.draw(self.display_surface, self.world_shift)
 
+        # dust particles
+        self.dust_sprite.update(self.world_shift)
+        self.dust_sprite.draw(self.display_surface)
+
         # background palms
         self.bg_palm_sprites.update(self.world_shift)
         self.bg_palm_sprites.draw(self.display_surface)
@@ -279,7 +311,9 @@ class Level:
         # player sprites
         self.player.update()
         self.horizontal_movement_collision()
+        self.get_player_on_ground()
         self.vertical_movement_collision()
+        self.create_landing_dust()
         self.scroll_x()
         self.player.draw(self.display_surface)
         self.goal.update(self.world_shift)
@@ -288,6 +322,8 @@ class Level:
         self.check_death()
         self.check_win()
         self.check_coin_collisions()
+
+
 
         # water
         self.water.draw(self.display_surface, self.world_shift)
