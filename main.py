@@ -3,6 +3,7 @@ from level import Level
 import pygame, sys
 from overworld import Overworld
 from level import Level
+from ui import UI
 
 class Game:
     def __init__(self):
@@ -15,6 +16,9 @@ class Game:
         # overworld creation
         self.overworld = Overworld(0, self.max_level, window, self.create_level)    # no brackets because method is being passed around, not called
         self.status = 'overworld'
+
+        # user interface
+        self.ui = UI(window)
 
     # method created in Game class but called in Overworld
     def create_level(self, current_level):
@@ -32,6 +36,8 @@ class Game:
             self.overworld.run()
         else:
             self.level.run()
+            self.ui.show_health(150, 100)
+            self.ui.show_coins(self.coins)
 
 # Pygame setup
 pygame.init()
