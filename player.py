@@ -4,7 +4,7 @@ from support import import_folder
 from settings import FPS
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, surface, create_jump_particles):
+    def __init__(self, pos, surface, create_jump_particles, change_health):
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0        # animation frame
@@ -34,6 +34,12 @@ class Player(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
+
+        # health management
+        self.change_health = change_health
+        self.invincible = False     # needed to set timer for decrease in player health
+        self.invincibility_duration = 400
+        self.hurt_time = 0
 
     # def jump(self):
     #     self.direction.y = self.jump_speed
@@ -211,6 +217,16 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         self.direction.y = self.jump_speed
+
+    def get_damage(self):
+        if not self.invincible:
+            self.change_health(-10)
+            self.invincible = True
+            self.hurt_time = pygame.time.get_ticks()
+
+    def invincibility_timer(self):
+        if self.invincible:
+            current_time = pygame.time.get_ticks()
 
     def update(self):
         self.animate()
