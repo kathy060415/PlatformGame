@@ -13,7 +13,7 @@ from decoration import Sky, Water, Clouds
 from game_data import levels
 
 class Level:
-    def __init__(self, current_level, surface, create_overworld):
+    def __init__(self, current_level, surface, create_overworld, change_coins):
         # level setup
         self.display_surface = surface
         self.world_shift = 0
@@ -36,6 +36,9 @@ class Level:
         self.player = pygame.sprite.GroupSingle()
         self.goal = pygame.sprite.GroupSingle()
         self.player_setup(player_layout)
+
+        # user interface
+        self.change_coins = change_coins    # method from main used inside level
 
         # terrain setup
         terrain_layout = import_csv_layout(level_data['terrain'])
@@ -110,9 +113,9 @@ class Level:
 
                     if type == 'coins':
                         if val == '0':
-                            sprite = Coin(tile_size, x, y, 'Treasure Hunters/Treasure Hunters/Pirate Treasure/Sprites/Gold Coin')
+                            sprite = Coin(tile_size, x, y, 'Treasure Hunters/Treasure Hunters/Pirate Treasure/Sprites/Gold Coin', 5)
                         if val == '1':
-                            sprite = Coin(tile_size, x, y, 'Treasure Hunters/Treasure Hunters/Pirate Treasure/Sprites/Silver Coin')
+                            sprite = Coin(tile_size, x, y, 'Treasure Hunters/Treasure Hunters/Pirate Treasure/Sprites/Silver Coin', 1)
 
                     if type == 'fg palms':
                         if val == '0':
@@ -228,6 +231,12 @@ class Level:
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.create_overworld(self.current_level, self.new_max_level)
 
+    def check_coin_collisions(self):
+        collided_coins = pygame.sprite.spritecollide(self.player.sprite, self.coin_sprites, True)   # True = do kill
+        if collided_coins:      # if anything in list
+            for coin in collided_coins:
+                self.change_coins(coin.value)
+
     def run(self):
         # new
         # self.display_surface.blit(self.text_surf, self.text_rect)
@@ -278,6 +287,7 @@ class Level:
 
         self.check_death()
         self.check_win()
+        self.check_coin_collisions()
 
         # water
         self.water.draw(self.display_surface, self.world_shift)
