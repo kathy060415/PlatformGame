@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.frame_index = 0        # animation frame
         self.animation_speed = 0.15
         self.image = self.animations['idle'][self.frame_index]
-        self.rect = self.image.get_rect(topleft=pos)
+        self.rect = self.image.get_rect(topleft=pos)    # actual sprite rect (follows self.collision_rect)/used for coins/enemies
 
         # dust particles
         self.import_dust_run_particles()
@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.speed = 8
         self.gravity = 0.8
         self.jump_speed = -16
+        self.collision_rect = pygame.Rect(self.rect.topleft, (50, self.rect.height)) # for rect around character only (without sword)
 
         # player status
         self.status = 'idle'   # default
@@ -88,29 +89,17 @@ class Player(pygame.sprite.Sprite):
         image = animation[int(self.frame_index)]
         if self.facing_right:
             self.image = image
+            self.rect.bottomleft = self.collision_rect.bottomleft   # rect follows collision_rect
         else:
             flipped_image = pygame.transform.flip(image, True, False)       # image, x-axis, y-axis
             self.image = flipped_image
+            self.rect.bottomright = self.collision_rect.bottomright
 
         if self.invincible:
             alpha = self.wave_value()   # 0 or 255
             self.image.set_alpha(alpha)     # setting transparency
         else:
             self.image.set_alpha(255)   # full transparency
-
-        # set the rect
-        if self.on_ground and self.on_right:
-            self.rect = self.image.get_rect(bottomright=self.rect.bottomright)
-        elif self.on_ground and self.on_left:
-            self.rect = self.image.get_rect(bottomleft=self.rect.bottomleft)
-        elif self.on_ground:
-            self.rect = self.image.get_rect(midbottom=self.rect.midbottom)
-        elif self.on_ceiling and self.on_right:
-            self.rect = self.image.get_rect(topright=self.rect.topright)
-        elif self.on_ceiling and self.on_left:
-            self.rect = self.image.get_rect(topleft=self.rect.topleft)
-        elif self.on_ceiling:
-            self.rect = self.image.get_rect(midtop=self.rect.midtop)
 
     def run_dust_animation(self):
         if self.status == 'run' and self.on_ground:
@@ -220,7 +209,7 @@ class Player(pygame.sprite.Sprite):
 
     def apply_gravity(self):
         self.direction.y += self.gravity
-        self.rect.y += self.direction.y
+        self.collision_rect.y += self.direction.y
 
     def jump(self):
         self.direction.y = self.jump_speed

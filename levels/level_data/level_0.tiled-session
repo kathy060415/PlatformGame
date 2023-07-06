@@ -46,40 +46,40 @@
             "scale": 0.33,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 2033.3333333333333,
-                "y": 204.5454545454545
+                "x": 1918.181818181818,
+                "y": 321.21212121212125
             }
         },
         "level_1.tmx": {
             "scale": 0.25,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 1332,
-                "y": -86
+                "x": 1920,
+                "y": 320
             }
         },
         "level_2.tmx": {
             "scale": 0.25,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 2000,
-                "y": 310
+                "x": 1920,
+                "y": 320
             }
         },
         "level_3.tmx": {
             "scale": 0.25,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 1652,
-                "y": 278
+                "x": 1920,
+                "y": 320
             }
         },
         "level_4.tmx": {
             "scale": 0.33,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 2224.242424242424,
-                "y": 419.69696969696975
+                "x": 1809.090909090909,
+                "y": 437.878787878788
             }
         }
     },

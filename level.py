@@ -18,7 +18,7 @@ class Level:
         # level setup
         self.display_surface = surface
         self.world_shift = 0
-        self.current_x = None      # x position of where collision has occurred
+        # self.current_x = None      # x position of where collision has occurred
 
         # overworld connection
         self.create_overworld = create_overworld
@@ -208,27 +208,20 @@ class Level:
     def horizontal_movement_collision(self):
         player = self.player.sprite
         # displaying horizontal movement
-        player.rect.x += player.direction.x * player.speed  # num used to increase speed of player
+        player.collision_rect.x += player.direction.x * player.speed  # num used to increase speed of player
         collidable_sprites = self.terrain_sprites.sprites() + self.crate_sprites.sprites() + self.fg_palm_sprites.sprites()
 
         # checking for rect collision in all sprites
         for sprite in collidable_sprites:
-            if sprite.rect.colliderect(player.rect):
+            if sprite.rect.colliderect(player.collision_rect):
                 if player.direction.x < 0:  # player moving left
-                    player.rect.left = sprite.rect.right
+                    player.collision_rect.left = sprite.rect.right
                     player.on_left = True
-                    self.current_x = player.rect.left
+                    # self.current_x = player.rect.left
                 elif player.direction.x > 0:    # player moving right
-                    player.rect.right = sprite.rect.left
+                    player.collision_rect.right = sprite.rect.left
                     player.on_right = True
-                    self.current_x = player.rect.right
-
-        if player.on_left and (player.rect.left < self.current_x  # player has exceeded obstacle
-                               or player.direction.x >= 0):       # player is moving to right
-            player.on_left = False
-        if player.on_right and (player.rect.right > self.current_x  # player has exceeded obstacle
-                               or player.direction.x <= 0):
-            player.on_right = False
+                    # self.current_x = player.rect.right
 
     def vertical_movement_collision(self):
         player = self.player.sprite
@@ -237,22 +230,20 @@ class Level:
 
         # checking for rect collision in all sprites
         for sprite in collidable_sprites:
-            if sprite.rect.colliderect(player.rect):
+            if sprite.rect.colliderect(player.collision_rect):
                 if player.direction.y > 0:  # player moving downwards/on floor
-                    player.rect.bottom = sprite.rect.top
+                    player.collision_rect.bottom = sprite.rect.top
                     player.direction.y = 0  # cancels out gravity
                     player.on_ground = True
-                    player.fall_count = 0
-                    player.jump_count = 0
+                    # player.fall_count = 0
+                    # player.jump_count = 0
                 elif player.direction.y < 0:  # player moving upwards/on ceiling
-                    player.rect.top = sprite.rect.bottom
+                    player.collision_rect.top = sprite.rect.bottom
                     player.direction.y = 0
                     player.on_ceiling = True
 
         if player.on_ground and player.direction.y < 0 or player.direction.y > 1:
             player.on_ground = False
-        if player.on_ceiling and player.direction.y > 0:
-            player.on_ceiling = False
 
     def check_death(self):
         if self.player.sprite.rect.top > screen_height: # player leaves screen
