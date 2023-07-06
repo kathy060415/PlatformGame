@@ -2,6 +2,7 @@ import pygame
 from os.path import join
 from support import import_folder
 from settings import FPS
+from math import sin
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, surface, create_jump_particles, change_health):
@@ -38,7 +39,7 @@ class Player(pygame.sprite.Sprite):
         # health management
         self.change_health = change_health
         self.invincible = False     # needed to set timer for decrease in player health
-        self.invincibility_duration = 400
+        self.invincibility_duration = 500
         self.hurt_time = 0
 
     # def jump(self):
@@ -90,6 +91,12 @@ class Player(pygame.sprite.Sprite):
         else:
             flipped_image = pygame.transform.flip(image, True, False)       # image, x-axis, y-axis
             self.image = flipped_image
+
+        if self.invincible:
+            alpha = self.wave_value()   # 0 or 255
+            self.image.set_alpha(alpha)     # setting transparency
+        else:
+            self.image.set_alpha(255)   # full transparency
 
         # set the rect
         if self.on_ground and self.on_right:
@@ -227,9 +234,18 @@ class Player(pygame.sprite.Sprite):
     def invincibility_timer(self):
         if self.invincible:
             current_time = pygame.time.get_ticks()
+            if current_time - self.hurt_time >= self.invincibility_duration:        # measures timer
+                self.invincible = False
+
+    def wave_value(self):   # used for flickering of character when hurt
+        value = sin(pygame.time.get_ticks())    # between -1 and 1 (transparency between 0 and 255)
+        if value >= 0: return 255
+        else: return 0
 
     def update(self):
         self.animate()
-        self.run_dust_animation()
         self.get_status()
         self.get_input()
+        self.run_dust_animation()
+        self.invincibility_timer()
+        self.wave_value()
