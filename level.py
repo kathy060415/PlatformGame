@@ -276,7 +276,7 @@ class Level:
                 enemy_center = enemy.rect.centery
                 enemy_top = enemy.rect.top
                 player_bottom = self.player.sprite.rect.bottom
-                if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:    # player going downwards
+                if enemy_top < player_bottom < enemy_center and self.player.sprite.direction.y >= 0:    # player going downwards (on top of enemy)
                     self.player.sprite.direction.y = -15
                     explosion_sprite = ParticleEffect(enemy.rect.center, 'explosion')
                     self.explosion_sprites.add(explosion_sprite)
