@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2(0, 0)
         self.speed = 8
         self.gravity = 0.8
-        self.jump_speed = -16
+        self.jump_speed = -18
         self.collision_rect = pygame.Rect(self.rect.topleft, (50, self.rect.height)) # for rect around character only (without sword)
 
         # player status
@@ -100,6 +100,8 @@ class Player(pygame.sprite.Sprite):
             self.image.set_alpha(alpha)     # setting transparency
         else:
             self.image.set_alpha(255)   # full transparency
+
+        self.rect = self.image.get_rect(midbottom = self.rect.midbottom)
 
     def run_dust_animation(self):
         if self.status == 'run' and self.on_ground:
