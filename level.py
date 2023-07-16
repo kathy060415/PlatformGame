@@ -249,6 +249,7 @@ class Level:
         if self.player.sprite.rect.top > screen_height: # player leaves screen
             self.create_overworld(self.current_level, 0)
 
+
     def check_win(self):
         if pygame.sprite.spritecollide(self.player.sprite, self.goal, False):
             self.create_overworld(self.current_level, self.new_max_level)
