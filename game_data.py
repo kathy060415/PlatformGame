@@ -62,7 +62,7 @@ level_3 = {
 level_4 = {
     'terrain': 'levels/4/level_4_terrain.csv',
     'grass': 'levels/4/level_4_grass.csv',
-    'coins': 'levels/4/level_3_coins.csv',
+    'coins': 'levels/4/level_4_coins.csv',
     'fg palms': 'levels/4/level_4_fg_palms.csv',
     'bg palms': 'levels/4/level_4_bg_palms.csv',
     'crates': 'levels/4/level_4_crate.csv',

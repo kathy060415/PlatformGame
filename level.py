@@ -126,7 +126,7 @@ class Level:
                     x = col_index * tile_size
                     y = row_index * tile_size
 
-                    sprite = None
+                    # sprite = None
 
                     if type == 'terrain':
                         terrain_tile_list = import_cut_graphics('Treasure Hunters/Treasure Hunters/Palm Tree Island/Sprites/terrain_tiles.png')
@@ -247,7 +247,7 @@ class Level:
 
     def check_death(self):
         if self.player.sprite.rect.top > screen_height: # player leaves screen
-            self.create_overworld(self.current_level, 0)
+            self.create_overworld(self.current_level, 0)    # no new max level, so 0
 
 
     def check_win(self):
