@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level_4.tmx",
+    "activeFile": "level_0.tmx",
     "expandedProjectPaths": [
     ],
     "fileStates": {
@@ -46,8 +46,8 @@
             "scale": 0.33,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 1918.181818181818,
-                "y": 321.21212121212125
+                "x": 1357.5757575757575,
+                "y": 146.969696969697
             }
         },
         "level_1.tmx": {
@@ -100,11 +100,11 @@
     ],
     "project": "level_0.tiled-project",
     "recentFiles": [
-        "level_0.tmx",
-        "level_1.tmx",
-        "level_2.tmx",
-        "level_3.tmx",
         "level_4.tmx",
+        "level_3.tmx",
+        "level_2.tmx",
+        "level_1.tmx",
+        "level_0.tmx",
         "C:/Users/kathy/Desktop/Personal Projects/Platform Game/levels/tilesets/Terrain.tsx",
         "C:/Users/kathy/Desktop/Personal Projects/Platform Game/levels/tilesets/enemy_tiles.tsx",
         "C:/Users/kathy/Desktop/Personal Projects/Platform Game/levels/tilesets/player_tiles.tsx",
